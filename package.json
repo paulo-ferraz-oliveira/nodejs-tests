@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "eslint": "8.43.0",
+    "markdownlint-cli": "0.35.0",
+    "prettier": "2.8.8",
+    "yaml-lint": "1.7.0"
+  },
+  "license": "MIT",
+  "name": "nodejs-tests",
+  "scripts": {
+    "prettier": "npm run prettier-package && npm run prettier-src && npm run prettier-test && npm run prettier-index",
+    "prettier-index": "./node_modules/.bin/prettier --config .prettierrc.yml index.js --write",
+    "prettier-package": "./node_modules/.bin/prettier --config .prettierrc.yml package.json --write",
+    "prettier-src": "./node_modules/.bin/prettier --config .prettierrc.yml src/**/*.js --write",
+    "prettier-test": "./node_modules/.bin/prettier --config .prettierrc.yml test/*.js --write",
+    "eslint": "npm run eslint-src && npm run eslint-test && npm run eslint-index",
+    "eslint-index": "./node_modules/.bin/eslint index.js",
+    "eslint-src": "./node_modules/.bin/eslint src/**/*.js",
+    "eslint-test": "./node_modules/.bin/eslint test/*.js",
+    "markdownlint-github": "./node_modules/.bin/markdownlint ./.github/**/*.md",
+    "markdownlint-md": "./node_modules/.bin/markdownlint *.md",
+    "markdownlint": "npm run markdownlint-github && npm run markdownlint-md",
+    "yamllint-github": "./node_modules/.bin/yamllint .github/workflows/**.yml",
+    "yamllint-yml": "./node_modules/.bin/yamllint .*.yml",
+    "yamllint": "npm run yamllint-github && npm run yamllint-yml",
+    "dist": "npm install && npm run prettier && npm run markdownlint && npm run yamllint && npm run eslint && node test"
+  },
+  "version": "0.0.1"
+}
