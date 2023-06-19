@@ -1,3 +1,10 @@
-<!-- markdownlint-disable MD041 -->
-<!-- markdownlint-enable -->
-# Feature
+---
+name: Feature request
+about: ''
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+Describe the feature

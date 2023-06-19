@@ -1,3 +1,10 @@
-<!-- markdownlint-disable MD041 -->
-<!-- markdownlint-enable -->
-# Bug
+---
+name: Bug report
+about: ''
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+Describe the bug
