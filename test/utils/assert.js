@@ -15,6 +15,24 @@ function is(left, right) {
   }
 }
 
+function is_exception(exception, f) {
+  var is_exception = false
+  var e
+
+  try {
+    f()
+  } catch(e0) {
+    e = e0
+    if (e0 instanceof exception) {
+      is_exception = true
+    }
+  }
+
+  if (!is_exception) {
+    throw `got ${e}, expected ${exception.name}`
+  }
+}
+
 // Private
 
 function expect(left, right) {
@@ -28,5 +46,6 @@ function stringify(tuple) {
 }
 
 module.exports = {
-  is: is
+  is: is,
+  is_exception: is_exception
 }

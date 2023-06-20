@@ -1,6 +1,8 @@
 const style = require('../../test/utils/style.js')
 
 function all(under_test) {
+  console.log(style.white('Running tests...'))
+
   under_test.forEach(run_all)
   summary()
 }
@@ -15,33 +17,37 @@ function req(what) {
 }
 
 function run_all(what) {
-  console.log(style.white('Running tests...'))
-
   var tests = req(what)
   tests.all().forEach(
     ([test_name, test_fun]) => {
+      var cfg
+      var exc
+
       if (tests.before) {
-        tests.before()
+        cfg = tests.before()
       }
 
       var result
       var msg = "undefined"
 
       try {
-        test_fun_res = test_fun()
+        test_fun_res = test_fun(cfg)
         if (test_fun_res === undefined) {
           [result, msg] = this_passed()
         } else {
-          throw 'Tests should return either undefined or throw an exception'
+          exc = 'Tests should return either undefined or throw an exception'
+          throw exc
         }
-      } catch(e) {
+      } catch (e) {
         [result, msg] = this_failed(e)
+        exc = e.stack
       }
 
       if (result === false) {
         console.log()
         console.log(`Test [${what}] ${style.cyan(test_name)}`)
         console.log(style.red(`Failed: ${msg}`, {bold: true}))
+        console.log(exc)
       }
     }
   )
