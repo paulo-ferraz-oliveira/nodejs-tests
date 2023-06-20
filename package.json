@@ -25,5 +25,5 @@
     "yamllint": "npm run yamllint-github && npm run yamllint-yml",
     "dist": "npm install && npm run prettier && npm run markdownlint && npm run yamllint && npm run eslint && node test"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
