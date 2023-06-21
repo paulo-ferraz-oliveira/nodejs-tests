@@ -13,7 +13,6 @@ function add(id, config) {
   }
 
   var checked_config_keys = check_config_keys(config)
-
   if (!error.is(checked_config_keys)) {
     players[id] = config
   }
@@ -23,8 +22,9 @@ function add(id, config) {
 
 // Caution!
 
-function __init_all() {
+function __init_all(cfg) {
   players = {}
+  return cfg
 }
 
 // Private
@@ -41,6 +41,7 @@ function check_config_key_type(key, config_key) {
   if (!assertion(config_key)) {
     return error._(['unexpected_key_type', key])
   }
+
   return ok._()
 }
 
