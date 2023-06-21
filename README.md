@@ -19,17 +19,19 @@ exploring those). It is also possible (and handled) for functions to raise excep
 We mostly assume atoms as strings (in Erlang you can also write an atom as `'ok'`, so this ended
 up fitting rather nicely).
 
-### The Ok "tuple"
+### The Ok/error "tuples"
+
+#### The Ok "tuple"
 
 Similar to Erlang's `{:ok, <stuff>}` we introduce/explore this concept in this bit of code
 (check `src/utils/ok-error.js`), as `['ok', <stuff>]`. As a companion to this "tuple", we also
 consider the return `:ok` (Node.js `'ok'`) as valid.
 
-## The error "tuple"
+#### The error "tuple"
 
 The same as above where `:ok` becomes `:error`, and `'ok'` becomes `'error'`.
 
-## The special tagged `<stuff>`
+#### The special tagged `<stuff>`
 
 Because it's quite restrictive to not be able to classify `<stuff>` we also explore the "tagged
 tuple" with extra info, so there's special handling (internally) for return values like
@@ -59,50 +61,86 @@ add_new_no_config() ->
   ?assertEqual(ok, player:add(1)).
 ```
 
-### Common Test's `all/0`
+### Common Test similarities
+
+#### `all`
 
 It is expressed here as
 
 ```javascript
-  all: () => { return [
+  all: [
     ['Test description', fn]
-  ] }
+  ]
+```
+
+or simply
+
+```javascript
+  all: [
+    fn
+  ]
 ```
 
 where the test name is influenced by Elixir's `test "..." do ... end` macro.
 
-### `before`
+#### `before` (at the suite and group definition -level)
 
 Similar to Common Test's `init_per_testcase` we explore the concept here via `before`.
 
-### `after`
+The same applies to `init_per_group`.
+
+#### `after` (at the suite and group definition -level)
 
 Similar to Common Test's `end_per_testcase` we explore the concept here via `after`.
 
-### `before_all`
+The same applies to `end_per_group`.
+
+#### `before_all` (at the suite definition -level)
 
 Similar to Common Test's `init_per_suite` we explore the concept here via `before_all`.
 
-### `after_all`
+#### `after_all` (at the suite -level)
 
 Similar to Common Test's `end_per_suite` we explore the concept here via `after_all`.
 
-### Summary
+#### Groups
+
+Similar to Common Test's groups we allow `{group: 'name', all: [fn, ...]}` for group specific
+executions, where `fn` is expressed as in section `all`, above.
+
+#### Configuration dependencies
+
+Configuration for a suite is expected to start as `{}`, and run through `suite.before_all/1`
+(only runs once). At the end of the execution of a suite, the configuration is run through
+`suite.after_all/1` (again, only runs once).
+
+It gets picked up by:
+
+* `group.before/1`, in the context of a group
+* `suite.before/1`, in the context of a testcase
+
+If a testcase is inside a group, the flow is
+`suite.before_all/1 > group.before/1 > suite.before/1`, though.
+
+#### Skipping groups/testcases
+
+It is also possible to skip groups or testcases using object property `skip: true`. This will
+be reported in the test execution summary.
+
+#### Summary
 
 A test summary will be similar to
 
 ```shell
-Running tests...
-.
-Test [player] Adding a new player NOK - id missing
-Failed: got left = id_compulsor, right = id_compulsory
-..
+===> Running suites...
 
-Summary: 3 passed, 1 failed
-ERROR: not all tests passed!
+%%% suite player: .##..#.
+%%% suite stack: ........
+
+Failed 0 test(s). Passed 12 test(s). Skipped 3 test(s).
 ```
 
-inspired in both Erlang's and Elixir's output.
+inspired in both Erlang's (`rebar3` actually) and Elixir's output.
 
 ## Colored output
 

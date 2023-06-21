@@ -1,5 +1,6 @@
 const ok = require('../../src/ok.js')
 const error = require('../../src/error.js')
+const style = require('./style')
 
 function is(left, right) {
   if (ok.is_typed(left) && ok.is_typed(right)) {
@@ -18,7 +19,6 @@ function is(left, right) {
 function is_exception(exception, f) {
   var is_exception = false
   var e
-
   try {
     f()
   } catch(e0) {
@@ -29,7 +29,7 @@ function is_exception(exception, f) {
   }
 
   if (!is_exception) {
-    throw `got ${e}, expected ${exception.name}`
+    throw new Error(`got ${e}, expected ${exception.name}`)
   }
 }
 
@@ -37,7 +37,7 @@ function is_exception(exception, f) {
 
 function expect(left, right) {
   if (left !== right) {
-    throw `got left = ${left}, right = ${right}`
+    throw new Error(`got ${style.red(right, {bold: true})}, expected ${style.red(left)}`)
   }
 }
 

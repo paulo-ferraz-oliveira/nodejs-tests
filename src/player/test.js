@@ -20,14 +20,28 @@ function add_new_config_nok() {
   is(error._(['unknown_key', 'dobi']), player.add(1, { dobi: 0 }))
 }
 
+function skipped1() {
+  // Should be skipped, so won't actually throw.
+  throw new Error()
+}
+
+function skipped2() {
+  // Should be skipped, so won't actually throw.
+  throw new Error()
+}
+
 module.exports = {
   before: player.__init_all,
-  all: () => {
-    return [
-      ['Adding a new player OK - no config', add_new_no_config],
-      ['Adding a new player NOK - id missing', add_new_id_missing],
-      ['Adding a new player OK - config OK', add_new_config_ok],
-      ['Adding a new player NOK - unknown key', add_new_config_nok],
-    ]
-  },
+  all: [
+    { name: 'Adding a new player OK - no config', fun: add_new_no_config },
+    {
+      group: true,
+      all: [skipped1, skipped2],
+      skip: true,
+    },
+    { name: 'Adding a new player NOK - id missing', fun: add_new_id_missing },
+    { name: 'Adding a new player OK - config OK', fun: add_new_config_ok },
+    { fun: skipped1, skip: true },
+    { name: 'Adding a new player NOK - unknown key', fun: add_new_config_nok },
+  ],
 }
