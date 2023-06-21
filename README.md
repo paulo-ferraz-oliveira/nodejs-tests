@@ -75,6 +75,10 @@ where the test name is influenced by Elixir's `test "..." do ... end` macro.
 
 Similar to Common Test's `init_per_testcase` we explore the concept here via `before`.
 
+### `after`
+
+Similar to Common Test's `end_per_testcase` we explore the concept here via `after`.
+
 ### Summary
 
 A test summary will be similar to

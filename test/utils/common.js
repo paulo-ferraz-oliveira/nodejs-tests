@@ -24,6 +24,7 @@ function run_all(what) {
       var exc
 
       if (tests.before) {
+        // Not expected to throw (!)
         cfg = tests.before()
       }
 
@@ -48,6 +49,11 @@ function run_all(what) {
         console.log(`Test [${what}] ${style.cyan(test_name)}`)
         console.log(style.red(`Failed: ${msg}`, {bold: true}))
         console.log(exc)
+      }
+
+      if (tests.after) {
+        // Not expected to throw (!)
+        tests.after(cfg)
       }
     }
   )

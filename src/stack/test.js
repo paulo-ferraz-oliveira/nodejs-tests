@@ -62,8 +62,13 @@ function push_puts_correct_value_in_stack(cfg) {
   is(pushed, cfg.stack.peek())
 }
 
+function after(cfg) {
+  is(true, cfg.stack instanceof Stack)
+}
+
 module.exports = {
   before: before,
+  after: after,
   all: () => {
     return [
       ['Returns true when stack is empty', returns_true_when_empty],
