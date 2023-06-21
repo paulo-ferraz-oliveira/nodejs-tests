@@ -66,9 +66,22 @@ function after(cfg) {
   is(true, cfg.stack instanceof Stack)
 }
 
+function before_all() {
+  console.log()
+  console.log()
+  console.log('<stack_tests>')
+}
+
+function after_all() {
+  console.log()
+  process.stdout.write('</stack_tests>')
+}
+
 module.exports = {
   before: before,
   after: after,
+  before_all: before_all,
+  after_all: after_all,
   all: () => {
     return [
       ['Returns true when stack is empty', returns_true_when_empty],

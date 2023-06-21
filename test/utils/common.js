@@ -18,6 +18,13 @@ function req(what) {
 
 function run_all(what) {
   var tests = req(what)
+  var cfg_all
+
+  if (tests.before_all) {
+    // Not expected to throw (!)
+    cfg_all = tests.before_all()
+  }
+
   tests.all().forEach(
     ([test_name, test_fun]) => {
       var cfg
@@ -25,7 +32,7 @@ function run_all(what) {
 
       if (tests.before) {
         // Not expected to throw (!)
-        cfg = tests.before()
+        cfg = tests.before(cfg_all)
       }
 
       var result
@@ -57,6 +64,11 @@ function run_all(what) {
       }
     }
   )
+
+  if (tests.after_all) {
+    // Not expected to throw (!)
+    tests.after_all()
+  }
 }
 
 function summary() {

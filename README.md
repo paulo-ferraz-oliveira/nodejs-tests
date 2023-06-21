@@ -79,6 +79,14 @@ Similar to Common Test's `init_per_testcase` we explore the concept here via `be
 
 Similar to Common Test's `end_per_testcase` we explore the concept here via `after`.
 
+### `before_all`
+
+Similar to Common Test's `init_per_suite` we explore the concept here via `before_all`.
+
+### `after_all`
+
+Similar to Common Test's `end_per_suite` we explore the concept here via `after_all`.
+
 ### Summary
 
 A test summary will be similar to
