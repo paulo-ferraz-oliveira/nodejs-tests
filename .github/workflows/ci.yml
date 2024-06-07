@@ -11,10 +11,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.6
       - run: echo "nodeVersion=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
         id: nvm
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4.0.2
         with:
           node-version: ${{ steps.nvm.outputs.nodeVersion }}
       - run: npm run dist
