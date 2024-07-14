@@ -1,1 +1,1 @@
-require('./src/nodejs-tests')
+module.exports = require('./src/nodejs-tests')
