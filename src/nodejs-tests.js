@@ -3,7 +3,7 @@ const error = require('./error')
 const { is, is_exception } = require('../test/utils/assert')
 const ok = require('./ok')
 
-return {
+module.exports = {
   all,
   error,
   is,
