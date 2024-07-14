@@ -21,7 +21,7 @@ function is_exception(exception, f) {
   var e
   try {
     f()
-  } catch(e0) {
+  } catch (e0) {
     e = e0
     if (e0 instanceof exception) {
       is_exception = true
@@ -37,7 +37,7 @@ function is_exception(exception, f) {
 
 function expect(left, right) {
   if (left !== right) {
-    throw new Error(`got ${style.red(right, {bold: true})}, expected ${style.red(left)}`)
+    throw new Error(`got ${style.red(right, { bold: true })}, expected ${style.red(left)}`)
   }
 }
 
@@ -47,5 +47,5 @@ function stringify(tuple) {
 
 module.exports = {
   is: is,
-  is_exception: is_exception
+  is_exception: is_exception,
 }

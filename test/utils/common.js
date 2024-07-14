@@ -28,21 +28,17 @@ function run_suite(suite_name) {
     suite_cfg = suite.before_all(suite_cfg)
   }
 
-  suite.all.forEach(
-    (group_or_testcase) => {
+  suite.all.forEach((group_or_testcase) => {
+    if (group_or_testcase.group !== undefined) {
+      var group = group_or_testcase
+      var group_cfg = suite_cfg
+      run_group(group, group_cfg, suite, suite_name)
+    } else {
+      var testcase = group_or_testcase
       var testcase_cfg = suite_cfg
-
-      if (group_or_testcase.group !== undefined) {
-        var group = group_or_testcase
-        var group_cfg = suite_cfg
-        run_group(group, group_cfg, suite, suite_name)
-      } else {
-        var testcase = group_or_testcase
-        var testcase_cfg = suite_cfg
-        run_testcase(testcase, testcase_cfg, suite, suite_name)
-      }
+      run_testcase(testcase, testcase_cfg, suite, suite_name)
     }
-  )
+  })
 
   if (suite.after_all) {
     // Not expected to throw (!)
@@ -56,18 +52,18 @@ function run_group(group, group_cfg, suite, suite_name) {
   var skipped = group.skip
   if (!skipped) {
     if (group.before) {
+      // Not expected to throw (!)
       group_cfg = group.before(group_cfg)
     }
 
-    group.all.forEach(
-      (testcase) => {
-        var testcase_cfg = group_cfg
-        run_testcase(testcase, testcase_cfg, suite, suite_name)
-      }
-    )
+    group.all.forEach((testcase) => {
+      var testcase_cfg = group_cfg
+      run_testcase(testcase, testcase_cfg, suite, suite_name)
+    })
 
-    if (group.before) {
-      group.before(group_cfg)
+    if (group.after) {
+      // Not expected to throw (!)
+      group.after(group_cfg)
     }
   } else {
     this_skipped(group.all.length)
@@ -99,19 +95,19 @@ function run_testcase(testcase, testcase_cfg, suite, suite_name) {
   var msg
   if (!testcase.skip) {
     try {
-      test_fun_res = test_fun(testcase_cfg)
+      var test_fun_res = test_fun(testcase_cfg)
       if (test_fun_res === undefined) {
-        [result, msg] = this_passed()
+        ;[result, msg] = this_passed()
       } else {
         exc = 'Tests should return either undefined or throw an exception'
         throw exc
       }
     } catch (e) {
-      [result, msg] = this_failed(e)
+      ;[result, msg] = this_failed(e)
       exc = e.stack
     }
   } else {
-    [result, msg] = this_skipped(1)
+    ;[result, msg] = this_skipped(1)
   }
 
   if (result === false) {
@@ -148,13 +144,13 @@ function summary() {
   if (skipped) {
     skipped = ` Skipped ${skipped} test(s).`
   } else {
-    skipped = ""
+    skipped = ''
   }
 
   console.log(skipped)
 
   if (failed) {
-    var failures_occurred = style.red(`Failures occurred running tests: ${failed}`, {bold: true})
+    var failures_occurred = style.red(`Failures occurred running tests: ${failed}`, { bold: true })
     console.log(`${style.red('===>')} ${failures_occurred}`)
   }
 }
@@ -178,7 +174,7 @@ function this_skipped(how_many) {
   skipped += how_many
 
   var ast = '#'
-  while(how_many-- > 0) {
+  while (how_many-- > 0) {
     process.stdout.write(ast)
   }
 
@@ -186,5 +182,5 @@ function this_skipped(how_many) {
 }
 
 module.exports = {
-  all: all
+  all: all,
 }

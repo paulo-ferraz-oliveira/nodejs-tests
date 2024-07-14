@@ -85,14 +85,23 @@ module.exports = {
     {
       group: '.empty',
       all: [
-        { name: 'Returns true when stack is empty', fun: returns_true_when_empty },
-        { name: 'Returns false when stack is not empty', fun: returns_false_when_not_empty },
+        {
+          name: 'Returns true when stack is empty',
+          fun: returns_true_when_empty,
+        },
+        {
+          name: 'Returns false when stack is not empty',
+          fun: returns_false_when_not_empty,
+        },
       ],
     },
     {
       group: '.peek',
       all: [
-        { name: 'Throws on empty stack .peek()', fun: throws_on_empty_stack_peek },
+        {
+          name: 'Throws on empty stack .peek()',
+          fun: throws_on_empty_stack_peek,
+        },
         { name: 'Allows peek when not empty', fun: allows_peek_when_not_empty },
         { name: 'Peek shows correct value', fun: peek_shows_correct_value },
       ],
@@ -110,7 +119,10 @@ module.exports = {
     {
       group: '.push',
       all: [
-        { name: 'Push works as expected and updates stack', fun: push_puts_correct_value_in_stack },
+        {
+          name: 'Push works as expected and updates stack',
+          fun: push_puts_correct_value_in_stack,
+        },
       ],
     },
   ],

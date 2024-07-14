@@ -2,12 +2,12 @@ const colors = {
   green: '[32m',
   red: '[31m',
   cyan: '[36m',
-  white: '[37m'
+  white: '[37m',
 }
 
 const styles = {
   bold: '[1m',
-  bright: '[37;1m'
+  bright: '[37;1m',
 }
 
 function color(code) {
@@ -46,5 +46,5 @@ module.exports = {
   cyan: color('cyan'),
   green: color('green'),
   red: color('red'),
-  white: color('white')
+  white: color('white'),
 }
