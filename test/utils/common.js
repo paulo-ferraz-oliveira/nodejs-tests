@@ -14,14 +14,14 @@ var passed = 0
 var failed = 0
 var skipped = 0
 
-function req(suite_name) {
-  return require(`../../src/${suite_name}/test.js`)
+function req(suite_name_suite) {
+  return suite_name_suite
 }
 
-function run_suite(suite_name) {
+function run_suite(suite_name_suite) {
+  var [suite_name, suite] = req(suite_name_suite)
   process.stdout.write(`%%% suite ${suite_name}: `)
 
-  var suite = req(suite_name)
   var suite_cfg = {}
   if (suite.before_all) {
     // Not expected to throw (!)
