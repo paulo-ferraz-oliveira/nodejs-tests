@@ -1,7 +1,7 @@
 ---
 name: CI
 
-on:
+"on":
   push:
     branches:
       - main
@@ -12,13 +12,21 @@ on:
 
 jobs:
   ci:
+    name: CI
+
     runs-on: ubuntu-22.04
+
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-      - run: echo "nodeVersion=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
-        id: nvm
-      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Install Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
-          node-version: ${{ steps.nvm.outputs.nodeVersion }}
-      - run: npm run dist
-      - run: git diff --exit-code --ignore-space-at-eol
+          node-version-file: .nvmrc
+
+      - name: CI
+        run: npm run dist
+
+      - name: Check if build left artifacts
+        run: git diff --exit-code --ignore-space-at-eol
