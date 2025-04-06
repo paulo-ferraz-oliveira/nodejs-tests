@@ -5,9 +5,9 @@
   "license": "MIT",
   "main": "index.js",
   "devDependencies": {
-    "eslint": "9.16.0",
-    "markdownlint-cli": "0.43.0",
-    "prettier": "3.4.2",
+    "eslint": "9.24.0",
+    "markdownlint-cli": "0.44.0",
+    "prettier": "3.5.3",
     "yaml-lint": "1.7.0"
   },
   "scripts": {
