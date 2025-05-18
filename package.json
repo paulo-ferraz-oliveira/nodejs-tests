@@ -6,7 +6,7 @@
   "main": "index.js",
   "devDependencies": {
     "eslint": "9.27.0",
-    "markdownlint-cli": "0.44.0",
+    "markdownlint-cli": "0.45.0",
     "prettier": "3.5.3",
     "yaml-lint": "1.7.0"
   },
