@@ -5,11 +5,11 @@
   "license": "MIT",
   "main": "index.js",
   "devDependencies": {
-    "globals": "17.4.0",
+    "globals": "17.7.0",
     "@eslint/js": "10.0.1",
-    "eslint": "10.1.0",
-    "markdownlint-cli": "0.48.0",
-    "prettier": "3.8.1",
+    "eslint": "10.6.0",
+    "markdownlint-cli": "0.49.0",
+    "prettier": "3.9.1",
     "yaml-lint": "1.7.0"
   },
   "scripts": {
